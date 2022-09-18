@@ -46,8 +46,15 @@ class D {
         return this.date.getSeconds()
     }
 
-    format() {
+    format(mask) {
+
+        if (!mask) {
+            return `${this.month} ${this.dateday}, ${this.year}`
+        }
+
         
+        // TO DO: 
+        // return a default format 
     }
 
 }
@@ -64,5 +71,7 @@ console.log( d.dateday )  // 27   - Date
 console.log( d.hours ) // 18   - Hour
 console.log( d.mins )  // 6    - Minutes
 console.log( d.secs )  // 5    - Seconds
+
+console.log(d.format())
 
 module.exports = D
