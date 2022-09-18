@@ -64,3 +64,5 @@ console.log( d.dateday )  // 27   - Date
 console.log( d.hours ) // 18   - Hour
 console.log( d.mins )  // 6    - Minutes
 console.log( d.secs )  // 5    - Seconds
+
+module.exports = D
