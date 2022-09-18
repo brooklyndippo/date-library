@@ -1,30 +1,4 @@
-// 
-
-const months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
-]
-
-const dayOfWeek = [
-    'Sunday',
-    'Monday',
-    'Tuesday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday'
-]
-
+const { months, dayOfWeek } = require('./utils')
 // Date Object
 
 class D {
@@ -70,6 +44,10 @@ class D {
 
     get secs() {
         return this.date.getSeconds()
+    }
+
+    format() {
+        
     }
 
 }
