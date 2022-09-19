@@ -79,6 +79,37 @@ class D {
         return String(this.date.getSeconds()).padStart(2, 0)
     }
 
+    get when() {
+        const today = new Date()
+        const difference = this.date - today
+
+        let whenStr = ''
+
+        const seconds = difference / 1000  // get the seconds
+        const mins = seconds / 60    // get minutes
+        const hrs = mins / 60     // get hours
+        const days = hrs / 24     // get days
+        const months = days / 30.437
+        const years = months / 12 // get years
+
+        if ( Math.abs(years) > 1) {
+            const yrs = Math.floor(years)
+            if (years > 1) {
+                whenStr += `${yrs} years from now`
+            } else {
+                whenStr += `${Math.abs(yrs) - 1} years ago`
+            }
+        } else {
+            const mos = Math.floor(months)
+            if (months > 1) {
+                whenStr += `${mos} months from now`
+            } else {
+                whenStr += `${Math.abs(mos) - 1} months ago`
+            }
+        }
+        return whenStr
+    }
+
     format(mask) {
         if (!mask) {
             return `${this.day}, ${this.month} ${this.dateDay}, ${this.year}`
@@ -144,7 +175,7 @@ class D {
 }
 
 // Gets the current date with no params
-const d = new D(2017, 0, 2, 3, 4, 5)
+const d = new D(1994, 11, 26, 3, 4, 5)
 console.log( d.year )  // 2021 - Full year
 console.log( d.yr )    // 21   - Short year
 console.log( d.month ) // July - Full month
@@ -162,5 +193,12 @@ console.log(d.format('y/m/d'))       // 17/Jan/2
 console.log(d.format('H:I:S'))       // 03:04:05
 console.log(d.format('h:i:s'))       // 3:4:5
 console.log(d.format('Y-M-D h:I:S')) // 2017-January-02 3:04:05 
+
+console.log(d.when)
+
+const b = new D(2022, 11, 26, 3, 4, 5)
+
+console.log(b.when)
+
 
 module.exports = D
