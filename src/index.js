@@ -99,12 +99,19 @@ class D {
             } else {
                 whenStr += `${Math.abs(yrs) - 1} years ago`
             }
-        } else {
+        } else if (years < 1 && months > 1) {
             const mos = Math.floor(months)
             if (months > 1) {
                 whenStr += `${mos} months from now`
             } else {
                 whenStr += `${Math.abs(mos) - 1} months ago`
+            }
+        } else {
+            const ds = Math.floor(days)
+            if (days > 1) {
+                whenStr += `${ds} days from now`
+            } else {
+                whenStr += `${Math.abs(ds) - 1} days ago`
             }
         }
         return whenStr
@@ -200,5 +207,8 @@ const b = new D(2022, 11, 26, 3, 4, 5)
 
 console.log(b.when)
 
+const t = new D(2022, 9, 10)
+
+console.log(t.when)
 
 module.exports = D
