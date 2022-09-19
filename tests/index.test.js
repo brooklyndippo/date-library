@@ -35,9 +35,9 @@ test ('D.dy', () => {
     expect(bday.dy).toBe('Mon')
 })
 
-test ('D.dateday', () => {
-    expect(d.dateday).toBe( today.getDate() )
-    expect(bday.dateday).toBe(26)
+test ('D.dateDay', () => {
+    expect(d.dateDay).toBe( today.getDate() )
+    expect(bday.dateDay).toBe(26)
 })
 
 test ('D.hours', () => {

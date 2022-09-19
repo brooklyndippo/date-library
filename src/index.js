@@ -30,48 +30,137 @@ class D {
         return dayOfWeek[this.date.getDay()].slice(0,3)
     }
 
-    get dateday() {
+    get dateDay() {
         return this.date.getDate()
+    }
+
+    get datePadded() {
+        return String(this.date.getDate()).padStart(2, 0)
+    }
+
+    get dateSuffix() {
+        switch (this.date.getDate() % 10) {
+            case 1:
+                return this.date.getDate() + 'st'
+                break;
+            case 2: 
+                return this.date.getDate() + 'nd'
+                break;
+            case 3:
+                return this.date.getDate() + 'rd'
+                break;
+            default:
+                return this.date.getDate() + 'th'
+                break; 
+        }
     }
 
     get hours() {
         return this.date.getHours()
     }
 
+    get hoursPadded() {
+        return String(this.date.getHours()).padStart(2, 0)
+    }
+
     get mins() {
         return this.date.getMinutes()
+    }
+
+    get minsPadded() {
+        return String(this.date.getMinutes()).padStart(2, 0)
     }
 
     get secs() {
         return this.date.getSeconds()
     }
 
-    format(mask) {
+    get secsPadded() {
+        return String(this.date.getSeconds()).padStart(2, 0)
+    }
 
+    format(mask) {
         if (!mask) {
-            return `${this.month} ${this.dateday}, ${this.year}`
+            return `${this.day}, ${this.month} ${this.dateDay}, ${this.year}`
+        }
+        else {
+            let formattedStr = ''
+            for (let i = 0; i < mask.length; i++) {
+                switch(mask[i]) {
+                    case 'Y':
+                        formattedStr += this.year
+                        break
+                    case 'y':
+                        formattedStr += this.yr
+                        break
+                    case 'M':
+                        formattedStr += this.month
+                        break
+                    case 'm':
+                        formattedStr += this.mon
+                        break
+                    case 'D':
+                        formattedStr += this.datePadded
+                        break
+                    case 'd':
+                        formattedStr += this.dateDay
+                        break
+                    case 'W':
+                        formattedStr += this.day
+                        break
+                    case 'w':
+                        formattedStr += this.dy
+                        break
+                    case '#':
+                        formattedStr += this.dateSuffix
+                        break
+                    case 'H':
+                        formattedStr += this.hoursPadded
+                        break
+                    case 'h':
+                        formattedStr += this.hours
+                        break
+                    case 'I':
+                        formattedStr += this.minsPadded
+                        break
+                    case 'i':
+                        formattedStr += this.mins
+                        break
+                    case 'S':
+                        formattedStr += this.secsPadded
+                        break
+                    case 's':
+                        formattedStr += this.secs
+                        break
+                    default:
+                        formattedStr += mask[i]
+                }
+            }
+            return formattedStr
         }
 
-        
-        // TO DO: 
-        // return a default format 
     }
 
 }
 
 // Gets the current date with no params
-const d = new D('12/26/1994') 
+const d = new D(2017, 0, 2, 3, 4, 5)
 console.log( d.year )  // 2021 - Full year
 console.log( d.yr )    // 21   - Short year
 console.log( d.month ) // July - Full month
 console.log( d.mon )   // Jul  - Short month
 console.log( d.day )   // Tuesday - Full day
 console.log( d.dy )    // Tue  - Short day
-console.log( d.dateday )  // 27   - Date
+console.log( d.dateDay )  // 27   - Date
 console.log( d.hours ) // 18   - Hour
 console.log( d.mins )  // 6    - Minutes
 console.log( d.secs )  // 5    - Seconds
 
-console.log(d.format())
+
+console.log(d.format())              // 2017 January 02
+console.log(d.format('y/m/d'))       // 17/Jan/2
+console.log(d.format('H:I:S'))       // 03:04:05
+console.log(d.format('h:i:s'))       // 3:4:5
+console.log(d.format('Y-M-D h:I:S')) // 2017-January-02 3:04:05 
 
 module.exports = D
