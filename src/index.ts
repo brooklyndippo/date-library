@@ -1,41 +1,46 @@
 const { months, dayOfWeek } = require('./utils')
 // Date Object
 
+interface D {
+    date: Date;
+}
+
 class D {
-	constructor(...args) {
+	constructor(...args: Array< Number | String | Date>) {
+        // @ts-ignore: Unreachable code error
 		this.date = new Date(...args)
 	}
 
-    get year() {
+    get year(): number {
         return this.date.getFullYear()
     }
 
-    get yr() {
+    get yr(): number {
         return this.date.getFullYear() % 100
     }
 
-    get month() {
+    get month(): string {
         return months[this.date.getMonth()]
     }
 
-    get mon() {
+    get mon(): string {
         return months[this.date.getMonth()].slice(0,3)
     }
 
-    get day() {
+    get day(): string {
         return dayOfWeek[this.date.getDay()]
     }
 
-    get dy() {
+    get dy(): string {
         return dayOfWeek[this.date.getDay()].slice(0,3)
     }
 
-    get dateDay() {
+    get dateDay(): number {
         return this.date.getDate()
     }
 
-    get datePadded() {
-        return String(this.date.getDate()).padStart(2, 0)
+    get datePadded():string {
+        return String(this.date.getDate()).padStart(2, '0')
     }
 
     get dateSuffix() {
@@ -55,33 +60,33 @@ class D {
         }
     }
 
-    get hours() {
+    get hours() : number {
         return this.date.getHours()
     }
 
-    get hoursPadded() {
-        return String(this.date.getHours()).padStart(2, 0)
+    get hoursPadded() : string {
+        return String(this.date.getHours()).padStart(2, '0')
     }
 
-    get mins() {
+    get mins() : number {
         return this.date.getMinutes()
     }
 
-    get minsPadded() {
-        return String(this.date.getMinutes()).padStart(2, 0)
+    get minsPadded() : string {
+        return String(this.date.getMinutes()).padStart(2, '0')
     }
 
-    get secs() {
+    get secs() : number {
         return this.date.getSeconds()
     }
 
-    get secsPadded() {
-        return String(this.date.getSeconds()).padStart(2, 0)
+    get secsPadded() : string {
+        return String(this.date.getSeconds()).padStart(2, '0')
     }
 
-    get when() {
+    get when() : string {
         const today = new Date()
-        const difference = this.date - today
+        const difference  = this.date.getTime() - today.getTime()
 
         let whenStr = ''
 
@@ -117,7 +122,7 @@ class D {
         return whenStr
     }
 
-    format(mask) {
+    format(mask: string) : string {
         if (!mask) {
             return `${this.day}, ${this.month} ${this.dateDay}, ${this.year}`
         }
@@ -195,7 +200,7 @@ console.log( d.mins )  // 6    - Minutes
 console.log( d.secs )  // 5    - Seconds
 
 
-console.log(d.format())              // 2017 January 02
+console.log(d.format(null))              // 2017 January 02
 console.log(d.format('y/m/d'))       // 17/Jan/2
 console.log(d.format('H:I:S'))       // 03:04:05
 console.log(d.format('h:i:s'))       // 3:4:5
